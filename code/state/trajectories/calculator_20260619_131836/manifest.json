@@ -1,0 +1,96 @@
+{
+  "task_id": "calculator",
+  "traj_dir": "D:\\EAG3\\Assignment_10\\code\\state\\trajectories\\calculator_20260619_131836",
+  "elapsed_s": 5.17,
+  "action_count": 14,
+  "screenshot_count": 2,
+  "actions": [
+    {
+      "t": 0.0,
+      "layer": "recorder",
+      "action": "start_recording",
+      "task_id": "calculator",
+      "traj_dir": "D:\\EAG3\\Assignment_10\\code\\state\\trajectories\\calculator_20260619_131836"
+    },
+    {
+      "t": 0.0,
+      "layer": "shell",
+      "action": "launch_calculator"
+    },
+    {
+      "t": 0.602,
+      "layer": "cascade",
+      "action": "escalate",
+      "from_layer": "shell",
+      "to_layer": "hotkeys",
+      "reason": "launching calc.exe via Run dialog"
+    },
+    {
+      "t": 0.602,
+      "layer": "hotkeys",
+      "action": "send_keys",
+      "keys": "'calc{ENTER}'"
+    },
+    {
+      "t": 2.163,
+      "layer": "recorder",
+      "action": "screenshot",
+      "file": "D:\\EAG3\\Assignment_10\\code\\state\\trajectories\\calculator_20260619_131836\\screenshot_00_calc_open.png"
+    },
+    {
+      "t": 2.463,
+      "layer": "hotkeys",
+      "action": "send_keys",
+      "keys": "'%2'"
+    },
+    {
+      "t": 2.816,
+      "layer": "hotkeys",
+      "action": "type_expression",
+      "expression": "345 * 678 - 90",
+      "key_seq": "345*678-90"
+    },
+    {
+      "t": 2.816,
+      "layer": "hotkeys",
+      "action": "send_keys",
+      "keys": "'345*678-90{ENTER}'"
+    },
+    {
+      "t": 4.09,
+      "layer": "recorder",
+      "action": "screenshot",
+      "file": "D:\\EAG3\\Assignment_10\\code\\state\\trajectories\\calculator_20260619_131836\\screenshot_01_calc_result.png"
+    },
+    {
+      "t": 4.091,
+      "layer": "hotkeys",
+      "action": "send_keys",
+      "keys": "'^a'"
+    },
+    {
+      "t": 4.344,
+      "layer": "hotkeys",
+      "action": "send_keys",
+      "keys": "'^c'"
+    },
+    {
+      "t": 4.818,
+      "layer": "shell",
+      "action": "clipboard_read",
+      "chars": 6
+    },
+    {
+      "t": 4.818,
+      "layer": "hotkeys",
+      "action": "send_keys",
+      "keys": "'%{F4}'"
+    },
+    {
+      "t": 5.17,
+      "layer": "recorder",
+      "action": "stop_recording",
+      "elapsed_s": 5.17
+    }
+  ]
+}

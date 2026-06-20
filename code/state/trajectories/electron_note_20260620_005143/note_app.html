@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>S10 Note App</title>
+<style>
+  body {{ font-family: sans-serif; max-width: 700px; margin: 40px auto; padding: 0 20px; }}
+  h1 {{ font-size: 1.4rem; }}
+  #notepad {{ width: 100%; height: 200px; font-size: 1rem; padding: 8px;
+             border: 1px solid #ccc; border-radius: 4px; resize: vertical; }}
+  #save-btn {{ margin-top: 8px; padding: 6px 18px; font-size: 1rem; cursor: pointer; }}
+  #status {{ margin-top: 8px; color: green; font-size: 0.9rem; }}
+  #word-count {{ font-size: 0.85rem; color: #666; margin-top: 4px; }}
+</style>
+</head>
+<body>
+<h1>Quick Note</h1>
+<textarea id="notepad" placeholder="Type your note here…"></textarea>
+<br>
+<button id="save-btn" onclick="saveNote()">Save Note</button>
+<p id="status"></p>
+<p id="word-count"></p>
+<script>
+  document.getElementById('notepad').addEventListener('input', function() {{
+    var words = this.value.trim().split(/\s+/).filter(Boolean).length;
+    document.getElementById('word-count').textContent = words + ' word(s)';
+  }});
+  function saveNote() {{
+    var note = document.getElementById('notepad').value;
+    document.getElementById('status').textContent = 'Note saved! (' + note.length + ' chars)';
+    window.__savedNote = note;
+  }}
+</script>
+</body>
+</html>

@@ -1,0 +1,89 @@
+{
+  "task_id": "electron_note",
+  "traj_dir": "D:\\EAG3\\Assignment_10\\code\\state\\trajectories\\electron_note_20260620_010029",
+  "elapsed_s": 2.29,
+  "action_count": 12,
+  "screenshot_count": 0,
+  "actions": [
+    {
+      "t": 0.0,
+      "layer": "recorder",
+      "action": "start_recording",
+      "task_id": "electron_note",
+      "traj_dir": "D:\\EAG3\\Assignment_10\\code\\state\\trajectories\\electron_note_20260620_010029"
+    },
+    {
+      "t": 0.001,
+      "layer": "shell",
+      "action": "write_html",
+      "path": "D:\\EAG3\\Assignment_10\\code\\state\\trajectories\\electron_note_20260620_010029\\note_app.html"
+    },
+    {
+      "t": 0.001,
+      "layer": "cascade",
+      "action": "escalate",
+      "from_layer": "shell",
+      "to_layer": "electron_cdp",
+      "reason": "target is Chromium-based \u2014 CDP path preferred over OS AX tree"
+    },
+    {
+      "t": 0.001,
+      "layer": "electron_cdp",
+      "action": "launch_html_app",
+      "html": "D:/EAG3/Assignment_10/code/state/trajectories/electron_note_20260620_010029/note_app.html",
+      "goal": "Write and save a note using the Electron/CDP path"
+    },
+    {
+      "t": 1.25,
+      "layer": "electron_cdp",
+      "action": "page_loaded",
+      "url": "file:///D:/EAG3/Assignment_10/code/state/trajectories/electron_note_20260620_010029/note_app.html"
+    },
+    {
+      "t": 1.25,
+      "layer": "electron_cdp",
+      "action": "locate_element",
+      "selector": "#notepad"
+    },
+    {
+      "t": 1.28,
+      "layer": "electron_cdp",
+      "action": "fill",
+      "selector": "#notepad",
+      "chars": 199
+    },
+    {
+      "t": 1.285,
+      "layer": "electron_cdp",
+      "action": "read_dom",
+      "selector": "#word-count",
+      "value": "27 word(s)"
+    },
+    {
+      "t": 1.33,
+      "layer": "electron_cdp",
+      "action": "click",
+      "selector": "#save-btn"
+    },
+    {
+      "t": 1.646,
+      "layer": "electron_cdp",
+      "action": "read_dom",
+      "selector": "#status",
+      "value": "Note saved! (199 chars)"
+    },
+    {
+      "t": 1.65,
+      "layer": "electron_cdp",
+      "action": "js_eval",
+      "var": "__savedNote",
+      "chars": 199
+    },
+    {
+      "t": 2.291,
+      "layer": "recorder",
+      "action": "stop_recording",
+      "elapsed_s": 2.29
+    }
+  ]
+}

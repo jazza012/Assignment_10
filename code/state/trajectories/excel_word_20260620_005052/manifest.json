@@ -1,0 +1,357 @@
+{
+  "task_id": "excel_word",
+  "traj_dir": "D:\\EAG3\\Assignment_10\\code\\state\\trajectories\\excel_word_20260620_005052",
+  "elapsed_s": 27.31,
+  "action_count": 55,
+  "screenshot_count": 6,
+  "actions": [
+    {
+      "t": 0.0,
+      "layer": "recorder",
+      "action": "start_recording",
+      "task_id": "excel_word",
+      "traj_dir": "D:\\EAG3\\Assignment_10\\code\\state\\trajectories\\excel_word_20260620_005052"
+    },
+    {
+      "t": 0.0,
+      "layer": "shell",
+      "action": "launch_excel",
+      "exe": "C:\\Program Files\\Microsoft Office\\root\\Office16\\EXCEL.EXE"
+    },
+    {
+      "t": 0.0,
+      "layer": "shell",
+      "action": "launch",
+      "cmd": [
+        "C:\\Program Files\\Microsoft Office\\root\\Office16\\EXCEL.EXE"
+      ]
+    },
+    {
+      "t": 4.029,
+      "layer": "recorder",
+      "action": "screenshot",
+      "file": "D:\\EAG3\\Assignment_10\\code\\state\\trajectories\\excel_word_20260620_005052\\screenshot_00_excel_open.png"
+    },
+    {
+      "t": 4.029,
+      "layer": "hotkeys",
+      "action": "send_keys",
+      "keys": "'{ESC}'"
+    },
+    {
+      "t": 4.383,
+      "layer": "cascade",
+      "action": "escalate",
+      "from_layer": "shell",
+      "to_layer": "hotkeys",
+      "reason": "Excel loaded; using hotkeys to create workbook"
+    },
+    {
+      "t": 4.383,
+      "layer": "hotkeys",
+      "action": "send_keys",
+      "keys": "'^n'"
+    },
+    {
+      "t": 5.694,
+      "layer": "recorder",
+      "action": "screenshot",
+      "file": "D:\\EAG3\\Assignment_10\\code\\state\\trajectories\\excel_word_20260620_005052\\screenshot_01_excel_newbook.png"
+    },
+    {
+      "t": 5.695,
+      "layer": "hotkeys",
+      "action": "send_keys",
+      "keys": "'Product'"
+    },
+    {
+      "t": 5.841,
+      "layer": "hotkeys",
+      "action": "send_keys",
+      "keys": "'{TAB}'"
+    },
+    {
+      "t": 5.892,
+      "layer": "hotkeys",
+      "action": "send_keys",
+      "keys": "'Units'"
+    },
+    {
+      "t": 5.997,
+      "layer": "hotkeys",
+      "action": "send_keys",
+      "keys": "'{TAB}'"
+    },
+    {
+      "t": 6.048,
+      "layer": "hotkeys",
+      "action": "send_keys",
+      "keys": "'Revenue'"
+    },
+    {
+      "t": 6.196,
+      "layer": "hotkeys",
+      "action": "send_keys",
+      "keys": "'{ENTER}'"
+    },
+    {
+      "t": 6.298,
+      "layer": "hotkeys",
+      "action": "send_keys",
+      "keys": "'Widget A'"
+    },
+    {
+      "t": 6.445,
+      "layer": "hotkeys",
+      "action": "send_keys",
+      "keys": "'{TAB}'"
+    },
+    {
+      "t": 6.497,
+      "layer": "hotkeys",
+      "action": "send_keys",
+      "keys": "'120'"
+    },
+    {
+      "t": 6.56,
+      "layer": "hotkeys",
+      "action": "send_keys",
+      "keys": "'{TAB}'"
+    },
+    {
+      "t": 6.612,
+      "layer": "hotkeys",
+      "action": "send_keys",
+      "keys": "'4800'"
+    },
+    {
+      "t": 6.695,
+      "layer": "hotkeys",
+      "action": "send_keys",
+      "keys": "'{ENTER}'"
+    },
+    {
+      "t": 6.796,
+      "layer": "hotkeys",
+      "action": "send_keys",
+      "keys": "'Widget B'"
+    },
+    {
+      "t": 6.943,
+      "layer": "hotkeys",
+      "action": "send_keys",
+      "keys": "'{TAB}'"
+    },
+    {
+      "t": 6.994,
+      "layer": "hotkeys",
+      "action": "send_keys",
+      "keys": "'85'"
+    },
+    {
+      "t": 7.036,
+      "layer": "hotkeys",
+      "action": "send_keys",
+      "keys": "'{TAB}'"
+    },
+    {
+      "t": 7.088,
+      "layer": "hotkeys",
+      "action": "send_keys",
+      "keys": "'5950'"
+    },
+    {
+      "t": 7.173,
+      "layer": "hotkeys",
+      "action": "send_keys",
+      "keys": "'{ENTER}'"
+    },
+    {
+      "t": 7.275,
+      "layer": "hotkeys",
+      "action": "send_keys",
+      "keys": "'Widget C'"
+    },
+    {
+      "t": 7.424,
+      "layer": "hotkeys",
+      "action": "send_keys",
+      "keys": "'{TAB}'"
+    },
+    {
+      "t": 7.475,
+      "layer": "hotkeys",
+      "action": "send_keys",
+      "keys": "'200'"
+    },
+    {
+      "t": 7.539,
+      "layer": "hotkeys",
+      "action": "send_keys",
+      "keys": "'{TAB}'"
+    },
+    {
+      "t": 7.59,
+      "layer": "hotkeys",
+      "action": "send_keys",
+      "keys": "'3000'"
+    },
+    {
+      "t": 7.674,
+      "layer": "hotkeys",
+      "action": "send_keys",
+      "keys": "'{ENTER}'"
+    },
+    {
+      "t": 7.944,
+      "layer": "recorder",
+      "action": "screenshot",
+      "file": "D:\\EAG3\\Assignment_10\\code\\state\\trajectories\\excel_word_20260620_005052\\screenshot_02_excel_data_entered.png"
+    },
+    {
+      "t": 7.945,
+      "layer": "cascade",
+      "action": "escalate",
+      "from_layer": "hotkeys",
+      "to_layer": "uia",
+      "reason": "verifying Excel window before copy"
+    },
+    {
+      "t": 13.001,
+      "layer": "uia",
+      "action": "attach_warning",
+      "note": ""
+    },
+    {
+      "t": 13.001,
+      "layer": "cascade",
+      "action": "escalate",
+      "from_layer": "uia",
+      "to_layer": "hotkeys",
+      "reason": "window confirmed; copy with hotkeys"
+    },
+    {
+      "t": 13.001,
+      "layer": "hotkeys",
+      "action": "send_keys",
+      "keys": "'^{HOME}'"
+    },
+    {
+      "t": 13.356,
+      "layer": "hotkeys",
+      "action": "send_keys",
+      "keys": "'^+{END}'"
+    },
+    {
+      "t": 13.811,
+      "layer": "hotkeys",
+      "action": "send_keys",
+      "keys": "'^c'"
+    },
+    {
+      "t": 14.535,
+      "layer": "recorder",
+      "action": "screenshot",
+      "file": "D:\\EAG3\\Assignment_10\\code\\state\\trajectories\\excel_word_20260620_005052\\screenshot_03_excel_selected.png"
+    },
+    {
+      "t": 14.536,
+      "layer": "cascade",
+      "action": "escalate",
+      "from_layer": "hotkeys",
+      "to_layer": "shell",
+      "reason": "launching Word"
+    },
+    {
+      "t": 14.536,
+      "layer": "shell",
+      "action": "launch",
+      "cmd": [
+        "C:\\Program Files\\Microsoft Office\\root\\Office16\\WINWORD.EXE"
+      ]
+    },
+    {
+      "t": 18.551,
+      "layer": "hotkeys",
+      "action": "send_keys",
+      "keys": "'{ESC}'"
+    },
+    {
+      "t": 19.103,
+      "layer": "cascade",
+      "action": "escalate",
+      "from_layer": "shell",
+      "to_layer": "hotkeys",
+      "reason": "Word loaded; paste table"
+    },
+    {
+      "t": 19.103,
+      "layer": "hotkeys",
+      "action": "send_keys",
+      "keys": "'^n'"
+    },
+    {
+      "t": 20.256,
+      "layer": "hotkeys",
+      "action": "send_keys",
+      "keys": "'^v'"
+    },
+    {
+      "t": 21.584,
+      "layer": "recorder",
+      "action": "screenshot",
+      "file": "D:\\EAG3\\Assignment_10\\code\\state\\trajectories\\excel_word_20260620_005052\\screenshot_04_word_pasted.png"
+    },
+    {
+      "t": 21.585,
+      "layer": "cascade",
+      "action": "escalate",
+      "from_layer": "hotkeys",
+      "to_layer": "vision",
+      "reason": "paste done; using vision to verify table is visible in Word"
+    },
+    {
+      "t": 21.745,
+      "layer": "vision",
+      "action": "vision_request",
+      "goal": "Is a table with columns Product, Units, Revenue visible in Microsoft Word? List the rows you can see.",
+      "png_kb": 559.1
+    },
+    {
+      "t": 24.287,
+      "layer": "vision",
+      "action": "vision_error",
+      "error": "All connection attempts failed"
+    },
+    {
+      "t": 24.449,
+      "layer": "recorder",
+      "action": "screenshot",
+      "file": "D:\\EAG3\\Assignment_10\\code\\state\\trajectories\\excel_word_20260620_005052\\screenshot_05_word_vision_verify.png"
+    },
+    {
+      "t": 24.45,
+      "layer": "hotkeys",
+      "action": "send_keys",
+      "keys": "'^s'"
+    },
+    {
+      "t": 26.105,
+      "layer": "hotkeys",
+      "action": "send_keys",
+      "keys": "'{ENTER}'"
+    },
+    {
+      "t": 26.657,
+      "layer": "hotkeys",
+      "action": "send_keys",
+      "keys": "'%{F4}'"
+    },
+    {
+      "t": 27.311,
+      "layer": "recorder",
+      "action": "stop_recording",
+      "elapsed_s": 27.31
+    }
+  ]
+}

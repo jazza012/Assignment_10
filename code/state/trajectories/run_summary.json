@@ -1,0 +1,33 @@
+[
+  {
+    "task": "calculator",
+    "success": true,
+    "layer_used": "L0+L1",
+    "content": "233820",
+    "traj_dir": "D:\\EAG3\\Assignment_10\\code\\state\\trajectories\\calculator_20260619_125517",
+    "elapsed_s": 5.67,
+    "error": null
+  },
+  {
+    "task": "electron_note",
+    "success": true,
+    "layer_used": "electron_cdp",
+    "content": "Session 10 \u2014 Computer-Use Skill\nFive-layer cascade demo: Shell \u2192 Hotkeys \u2192 UIAutomation \u2192 AX+LLM \u2192 Vision\nElectron/CDP path: Playwright attaches over DevTools Protocol.\nTimestamp: 2026-06-19 22:55:24",
+    "traj_dir": "D:\\EAG3\\Assignment_10\\code\\state\\trajectories\\electron_note_20260619_125522",
+    "elapsed_s": 2.35,
+    "error": null
+  },
+  {
+    "task": "excel_word",
+    "success": true,
+    "layer_used": "L0+L1+L2a+L3",
+    "content": {
+      "excel_rows": 4,
+      "word_paste": "done",
+      "vision_observed": "(no vision result)"
+    },
+    "traj_dir": "D:\\EAG3\\Assignment_10\\code\\state\\trajectories\\excel_word_20260619_125525",
+    "elapsed_s": 26.39,
+    "error": null
+  }
+]
