@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1280, initial-scale=1">
+<title>Browser Comparison Agent — Demo</title>
+<style>
+:root{
+  --color-text-primary:#1e293b;
+  --color-text-secondary:#64748b;
+  --color-background-primary:#ffffff;
+  --color-background-secondary:#f8fafc;
+  --color-border-tertiary:#e2e8f0;
+  --color-border-secondary:#cbd5e1;
+  --color-background-info:#eff6ff;
+  --color-text-info:#1d4ed8;
+  --color-background-success:#f0fdf4;
+  --color-text-success:#15803d;
+  --color-background-warning:#fffbeb;
+  --color-text-warning:#92400e;
+  --font-sans:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+  --font-mono:'Cascadia Code','Courier New',Courier,monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{margin:0;padding:20px 0;background:#0f1117;min-height:720px;display:flex;align-items:flex-start;justify-content:center;font-family:var(--font-sans);}
+.presenter{width:1180px;background:#fff;border-radius:14px;padding:22px 26px 14px;box-shadow:0 30px 70px rgba(0,0,0,.6);}
+.phead{display:flex;align-items:center;gap:12px;margin-bottom:16px;padding-bottom:13px;border-bottom:1.5px solid #e2e8f0;}
+.plogo{width:36px;height:36px;background:linear-gradient(135deg,#4f46e5,#7c3aed);border-radius:9px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:16px;flex-shrink:0;}
+.pinfo{flex:1}
+.pinfo h1{font-size:14px;font-weight:600;color:#1e293b;margin:0;}
+.pinfo p{font-size:11px;color:#64748b;margin:2px 0 0;}
+.ptag{display:flex;gap:6px;align-items:center}
+.ptag span{font-size:10px;font-weight:500;padding:3px 9px;border-radius:20px;}
+.pt1{background:#EEEDFE;color:#3C3489;}
+.pt2{background:#E1F5EE;color:#085041;}
+/* ---- demo widget CSS ---- */
+.demo{font-size:13px;color:var(--color-text-primary);font-family:var(--font-sans);padding:.25rem 0 .5rem}
+.top{display:flex;align-items:flex-start;justify-content:space-between;gap:8px;margin-bottom:.5rem}
+.top-left h3{font-size:15px;font-weight:500;line-height:1.3}
+.top-left p{font-size:11px;color:var(--color-text-secondary);margin-top:2px}
+.sbadge{font-size:11px;font-weight:500;padding:3px 10px;background:#EEEDFE;color:#3C3489;border-radius:20px;white-space:nowrap;flex-shrink:0}
+.pbar{height:3px;background:var(--color-border-tertiary);border-radius:2px;margin-bottom:10px;overflow:hidden}
+.pfill{height:100%;border-radius:2px;background:#534AB7;transition:width .5s ease}
+.swrap{min-height:420px}
+.slide{display:none;animation:fi .35s ease}
+.slide.on{display:block}
+@keyframes fi{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
+.term{background:#0f172a;border-radius:8px;overflow:hidden;margin-bottom:10px}
+.tbar{background:#1e293b;padding:5px 10px;display:flex;align-items:center;gap:5px;font-size:10px;color:#64748b}
+.tdot{width:8px;height:8px;border-radius:50%;display:inline-block}
+.tbody{padding:8px 12px;font-family:var(--font-mono);font-size:11px;line-height:1.9;min-height:70px;color:#e2e8f0}
+.tl{opacity:0;transition:opacity .25s}.tl.s{opacity:1}
+.tc{color:#22d3ee}.tg{color:#4ade80}.ty{color:#facc15}.td{color:#64748b}
+.dag{display:flex;flex-direction:column;gap:7px}
+.drow{display:flex;align-items:center;gap:5px;flex-wrap:wrap}
+.dlbl{font-size:10px;font-weight:500;color:var(--color-text-secondary);width:80px;flex-shrink:0}
+.dn{padding:3px 9px;border-radius:20px;font-size:10px;font-weight:500;border:.5px solid;opacity:0;transition:opacity .35s,transform .3s;transform:translateY(4px)}
+.dn.s{opacity:1;transform:translateY(0)}
+.np{background:#EEEDFE;color:#3C3489;border-color:#AFA9EC}
+.nb{background:#E1F5EE;color:#085041;border-color:#5DCAA5}
+.nd{background:#E6F1FB;color:#0C447C;border-color:#85B7EB}
+.nr{background:#FAEEDA;color:#633806;border-color:#EF9F27}
+.nf{background:#EAF3DE;color:#27500A;border-color:#97C459}
+.darr{color:var(--color-text-secondary);font-size:16px;padding-left:80px}
+.clayer{display:flex;gap:10px;align-items:flex-start;padding:9px 12px;border:.5px solid var(--color-border-secondary);border-radius:8px;background:var(--color-background-primary);margin-bottom:7px}
+.clayer.chosen{border-color:#1D9E75;background:#E1F5EE}
+.cbadge{font-size:10px;font-weight:500;padding:2px 8px;border-radius:20px;flex-shrink:0;margin-top:1px;white-space:nowrap}
+.cb1{background:#d1fae5;color:#065f46}.cb2{background:#dbeafe;color:#1d4ed8}.cb3{background:#ede9fe;color:#6d28d9}
+.ctitle{font-size:12px;font-weight:500;margin-bottom:2px}
+.cdesc{font-size:11px;color:var(--color-text-secondary);line-height:1.5}
+.cres{font-size:11px;font-weight:500;color:#1D9E75;margin-top:3px}
+.urow{display:flex;align-items:center;gap:6px;font-size:11px;padding:5px 9px;background:var(--color-background-secondary);border-radius:6px;margin-bottom:5px}
+.uname{font-weight:500;width:110px;flex-shrink:0}
+.uhref{color:var(--color-text-secondary);flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-family:var(--font-mono);font-size:10px}
+.usize{color:var(--color-text-secondary);width:42px;text-align:right;flex-shrink:0;font-size:10px}
+.xtag{background:#d1fae5;color:#065f46;font-size:9px;font-weight:600;padding:1px 6px;border-radius:20px;flex-shrink:0}
+.aitem{display:flex;gap:9px;align-items:flex-start;padding:7px 10px;background:var(--color-background-primary);border:.5px solid var(--color-border-tertiary);border-radius:8px;margin-bottom:7px;opacity:0;transition:opacity .4s,transform .3s;transform:translateX(-8px)}
+.aitem.s{opacity:1;transform:translateX(0)}
+.aturn{font-size:10px;font-weight:500;background:#E6F1FB;color:#0C447C;padding:2px 8px;border-radius:20px;flex-shrink:0;margin-top:2px}
+.atitle{font-size:12px;font-weight:500;margin-bottom:2px}
+.adesc{font-size:11px;color:var(--color-text-secondary);line-height:1.5}
+.aout{font-size:11px;font-weight:500;color:#1D9E75;margin-top:3px}
+.tgrid{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin-bottom:8px}
+.tcard{border:.5px solid var(--color-border-tertiary);border-radius:8px;padding:8px 6px;background:var(--color-background-primary);opacity:0;transition:opacity .4s,transform .3s;transform:translateY(5px)}
+.tcard.s{opacity:1;transform:translateY(0)}
+.tcn{font-size:10px;font-weight:500;margin-bottom:5px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.tcr{display:flex;justify-content:space-between;gap:2px;margin-top:3px}
+.tcl{font-size:9px;color:var(--color-text-secondary)}
+.tcv{font-size:9px;font-weight:500;text-align:right}
+.xt2{background:#d1fae5;color:#065f46;font-size:9px;font-weight:500;padding:1px 5px;border-radius:20px;margin-top:5px;display:inline-block}
+.ct{width:100%;border-collapse:collapse;font-size:11px;table-layout:fixed}
+.ct th{background:#4f46e5;color:#fff;padding:6px 8px;text-align:left;font-weight:500}
+.ct td{padding:5px 8px;border:.5px solid var(--color-border-tertiary);vertical-align:top;word-break:break-word}
+.ct tr:nth-child(even) td{background:var(--color-background-secondary)}
+.ct td:first-child{font-weight:500;white-space:nowrap}
+.ci{display:flex;align-items:flex-start;gap:9px;padding:7px 11px;border:.5px solid var(--color-border-tertiary);border-radius:8px;margin-bottom:6px;background:var(--color-background-primary);opacity:0;transition:opacity .4s}
+.ci.s{opacity:1}
+.cinum{font-size:10px;font-weight:500;background:#E1F5EE;color:#085041;width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.cititle{font-size:12px;font-weight:500;margin-bottom:2px}
+.cidesc{font-size:11px;color:var(--color-text-secondary);line-height:1.5}
+.sgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;margin-bottom:10px}
+.scard{background:var(--color-background-secondary);border-radius:8px;padding:10px;text-align:center}
+.sval{font-size:22px;font-weight:500;line-height:1.2}
+.slbl{font-size:10px;color:var(--color-text-secondary);margin-top:2px}
+.igrid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.icard{border:.5px solid var(--color-border-tertiary);border-radius:8px;padding:10px 12px;background:var(--color-background-primary)}
+.ilbl{font-size:10px;font-weight:500;color:var(--color-text-secondary);margin-bottom:7px}
+.irow{font-size:11px;line-height:2;color:var(--color-text-primary)}
+.nav{display:flex;align-items:center;justify-content:space-between;margin-top:10px;padding-top:9px;border-top:.5px solid var(--color-border-tertiary)}
+.nbtn{padding:5px 12px;font-size:12px;font-weight:500;border:.5px solid var(--color-border-secondary);border-radius:6px;background:transparent;color:var(--color-text-primary);cursor:pointer;transition:background .15s}
+.nbtn:hover{background:var(--color-background-secondary)}
+.nbtn:disabled{opacity:.35;cursor:default}
+.playbtn{background:#EEEDFE;color:#3C3489;border-color:#AFA9EC}
+.dots{display:flex;gap:4px;align-items:center}
+.dot{width:6px;height:6px;border-radius:50%;background:var(--color-border-secondary);cursor:pointer;transition:all .2s}
+.dot.on{width:16px;border-radius:3px;background:#534AB7}
+.infobanner{background:#E6F1FB;color:#0C447C;border-radius:7px;padding:7px 11px;font-size:11px;line-height:1.5;margin-bottom:10px}
+</style>
+</head>
+<body>
+<div class="presenter">
+
+<!-- Header bar -->
+<div class="phead">
+  <div class="plogo">🌐</div>
+  <div class="pinfo">
+    <h1>Browser Comparison Agent — EAG3 Assignment 9</h1>
+    <p>Session cmp-1707eaf8 &nbsp;·&nbsp; Query: "Compare 5 AI coding tools by free plan and paid plan."</p>
+  </div>
+  <div class="ptag">
+    <span class="pt1">Growing-Graph Orchestrator</span>
+    <span class="pt2">Browser Cascade</span>
+  </div>
+</div>
+
+<!-- Demo widget -->
+<div class="demo">
+<div class="top">
+  <div class="top-left">
+    <h3 id="stitle">User Query</h3>
+    <p id="ssub">The browser comparison agent is invoked</p>
+  </div>
+  <span class="sbadge" id="sbadge">Step 1 / 8</span>
+</div>
+<div class="pbar"><div class="pfill" id="pfill" style="width:12.5%"></div></div>
+
+<div class="swrap">
+
+<!-- Slide 1 -->
+<div class="slide on" id="sl1">
+  <div class="term">
+    <div class="tbar"><span class="tdot" style="background:#ff5f56"></span><span class="tdot" style="background:#ffbd2e"></span><span class="tdot" style="background:#27c93f"></span>&nbsp; run_comparison.py</div>
+    <div class="tbody">
+      <div class="tl" id="t0"></div>
+      <div class="tl" id="t1"></div>
+      <div class="tl" id="t2"></div>
+      <div class="tl" id="t3"></div>
+    </div>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+    <div style="border:.5px solid var(--color-border-tertiary);border-radius:8px;padding:10px 12px;background:var(--color-background-primary)">
+      <div style="font-size:10px;font-weight:500;color:var(--color-text-secondary);margin-bottom:6px">WHY BROWSER AGENT?</div>
+      <div style="font-size:12px;line-height:1.6">Pricing pages are JS-rendered or tab-gated — <code>fetch_url</code> returns empty HTML shells. The 4-layer cascade (extract → a11y → vision) handles any page type automatically.</div>
+    </div>
+    <div style="border:.5px solid var(--color-border-tertiary);border-radius:8px;padding:10px 12px;background:var(--color-background-primary)">
+      <div style="font-size:10px;font-weight:500;color:var(--color-text-secondary);margin-bottom:6px">ORCHESTRATOR FLOW</div>
+      <div style="font-size:12px;line-height:1.6">Planner creates a parallel DAG → 5 browser nodes fetch pricing pages → distillers extract plan details → replay viewer → formatter renders comparison table.</div>
+    </div>
+  </div>
+</div>
+
+<!-- Slide 2 -->
+<div class="slide" id="sl2">
+  <div class="infobanner">"Fetch pricing and plan details for well-known AI coding tools in parallel using known URLs." — Planner rationale (n:1, 10.5 s, session cmp-1707eaf8)</div>
+  <div class="dag">
+    <div class="drow"><div class="dlbl">Planner</div><div class="dn np" id="d1">n:1 planner (10.5s)</div></div>
+    <div class="darr">↓</div>
+    <div class="drow"><div class="dlbl">Browser ×5</div><div class="dn nb" id="d2">n:2 GitHub Copilot</div><div class="dn nb" id="d3">n:3 Cursor</div><div class="dn nb" id="d4">n:4 Tabnine</div><div class="dn nb" id="d5">n:5 Codeium</div><div class="dn nb" id="d6">n:6 Amazon Q</div></div>
+    <div class="darr">↓ (parallel)</div>
+    <div class="drow"><div class="dlbl">Distiller ×5</div><div class="dn nd" id="d7">n:7 distiller</div><div class="dn nd" id="d8">n:8 distiller</div><div class="dn nd" id="d9">n:9 distiller</div><div class="dn nd" id="d10">n:10 distiller</div><div class="dn nd" id="d11">n:11 distiller</div></div>
+    <div class="darr">↓</div>
+    <div class="drow"><div class="dlbl">Replay</div><div class="dn nr" id="d12">n:12 replay_viewer (16.5s)</div></div>
+    <div class="darr">↓</div>
+    <div class="drow"><div class="dlbl">Output</div><div class="dn nf" id="d13">n:13 formatter (10.9s)</div></div>
+  </div>
+</div>
+
+<!-- Slide 3 -->
+<div class="slide" id="sl3">
+  <div class="clayer chosen">
+    <div><div class="cbadge cb1">Layer 1 ✓</div></div>
+    <div style="flex:1">
+      <div class="ctitle">Extract — trafilatura + plain HTTP</div>
+      <div class="cdesc">Fastest path: direct GET → HTML parse. No Playwright, no LLM call. Cost: $0.</div>
+      <div class="cres">✓ Chosen for all 5 pricing pages (static HTML) — content returned in 0.6–2.2 s</div>
+    </div>
+  </div>
+  <div class="clayer">
+    <div><div class="cbadge cb2">Layer 2b</div></div>
+    <div style="flex:1">
+      <div class="ctitle">A11y Driver — Playwright + accessibility tree + /v1/chat</div>
+      <div class="cdesc">Launches Chromium, reads interactive element legend, drives via text LLM. Used when JS renders the content (e.g. HuggingFace filters). → See Slide 4.</div>
+    </div>
+  </div>
+  <div class="clayer">
+    <div><div class="cbadge cb3">Layer 3</div></div>
+    <div style="flex:1">
+      <div class="ctitle">Vision (Set-of-Marks) — annotated screenshot + /v1/vision</div>
+      <div class="cdesc">Numbers every interactive element on a screenshot, calls a vision model. Ultimate fallback for visually-driven UIs.</div>
+    </div>
+  </div>
+  <div style="margin-top:8px">
+    <div class="urow"><span class="uname">GitHub Copilot</span><span class="uhref">github.com/features/copilot</span><span class="usize">66 KB</span><span class="xtag">extract 1.5s</span></div>
+    <div class="urow"><span class="uname">Cursor</span><span class="uhref">cursor.so/pricing</span><span class="usize">2.5 KB</span><span class="xtag">extract 0.8s</span></div>
+    <div class="urow"><span class="uname">Tabnine</span><span class="uhref">tabnine.com/pricing</span><span class="usize">7.5 KB</span><span class="xtag">extract 2.2s</span></div>
+    <div class="urow"><span class="uname">Codeium</span><span class="uhref">codeium.com/pricing</span><span class="usize">3.1 KB</span><span class="xtag">extract 0.6s</span></div>
+    <div class="urow"><span class="uname">Amazon Q Dev</span><span class="uhref">aws.amazon.com/codewhisperer/pricing/</span><span class="usize">5.4 KB</span><span class="xtag">extract 1.4s</span></div>
+  </div>
+</div>
+
+<!-- Slide 4 -->
+<div class="slide" id="sl4">
+  <div class="infobanner"><strong>Browser capability demo:</strong> Session s8-6568acb9 — "Compare top 3 HuggingFace text-generation models sorted by likes." Page is JS-rendered with filter dropdowns. The a11y driver performed 3 interactive clicks in 4 turns.</div>
+  <div class="aitem" id="a1">
+    <div class="aturn">Turn 1</div>
+    <div style="flex:1">
+      <div class="atitle">click(mark=36) — "Tasks" filter dropdown</div>
+      <div class="adesc">A11y driver scanned the accessibility tree, identified element #36 as the task-filter control, and clicked to open the dropdown.</div>
+      <div class="aout">↳ ok — dropdown opened, new elements appeared in next turn's legend</div>
+    </div>
+  </div>
+  <div class="aitem" id="a2">
+    <div class="aturn">Turn 2</div>
+    <div style="flex:1">
+      <div class="atitle">click(mark=80) — "Text Generation"</div>
+      <div class="adesc">Selected "Text Generation" from the task filter list. Page reloaded with 374,163 filtered models.</div>
+      <div class="aout">↳ ok — URL updated: /models?pipeline_tag=text-generation</div>
+    </div>
+  </div>
+  <div class="aitem" id="a3">
+    <div class="aturn">Turn 3</div>
+    <div style="flex:1">
+      <div class="atitle">click(mark=82) — "Sort: Most Likes"</div>
+      <div class="adesc">Clicked the sort control. Page re-sorted by likes in descending order.</div>
+      <div class="aout">↳ ok — URL updated: ?pipeline_tag=text-generation&sort=likes</div>
+    </div>
+  </div>
+  <div class="aitem" id="a4">
+    <div class="aturn">Turn 4</div>
+    <div style="flex:1">
+      <div class="atitle">done(success=True) — goal achieved</div>
+      <div class="adesc">Extracted top 3: DeepSeek-R1 (13.4k likes), Meta-Llama-3-8B (6.58k), Llama-3.1-8B-Instruct (6.09k)</div>
+      <div class="aout">↳ Final URL: huggingface.co/models?pipeline_tag=text-generation&sort=likes</div>
+    </div>
+  </div>
+</div>
+
+<!-- Slide 5 -->
+<div class="slide" id="sl5">
+  <div class="tgrid">
+    <div class="tcard" id="tc1">
+      <div class="tcn">GitHub Copilot</div>
+      <div class="tcr"><span class="tcl">Free</span><span class="tcv">$0/mo</span></div>
+      <div class="tcr"><span class="tcl">2,000 completions</span></div>
+      <div class="tcr"><span class="tcl">Haiku 4.5, GPT-5 mini</span></div>
+      <div class="tcr"><span class="tcl">Paid</span><span class="tcv">$10–$100</span></div>
+      <div class="tcr"><span class="tcl">Pro / Pro+ / Max</span></div>
+      <span class="xt2">extract ✓</span>
+    </div>
+    <div class="tcard" id="tc2">
+      <div class="tcn">Cursor</div>
+      <div class="tcr"><span class="tcl">Free</span><span class="tcv">Hobby</span></div>
+      <div class="tcr"><span class="tcl">Limited agent reqs</span></div>
+      <div class="tcr"><span class="tcl">Limited Tab completions</span></div>
+      <div class="tcr"><span class="tcl">Paid</span><span class="tcv">$20/mo</span></div>
+      <div class="tcr"><span class="tcl">Individual; Teams $40</span></div>
+      <span class="xt2">extract ✓</span>
+    </div>
+    <div class="tcard" id="tc3">
+      <div class="tcn">Tabnine</div>
+      <div class="tcr"><span class="tcl">Free</span><span class="tcv">N/A</span></div>
+      <div class="tcr"><span class="tcl">Plan removed</span></div>
+      <div class="tcr" style="height:14px"></div>
+      <div class="tcr"><span class="tcl">Paid</span><span class="tcv">$39/user</span></div>
+      <div class="tcr"><span class="tcl">Code Assistant</span></div>
+      <span class="xt2">extract ✓</span>
+    </div>
+    <div class="tcard" id="tc4">
+      <div class="tcn">Codeium</div>
+      <div class="tcr"><span class="tcl">Free</span><span class="tcv">$0/mo</span></div>
+      <div class="tcr"><span class="tcl">Light quota, edits</span></div>
+      <div class="tcr"><span class="tcl">Limited model access</span></div>
+      <div class="tcr"><span class="tcl">Paid</span><span class="tcv">$20/mo</span></div>
+      <div class="tcr"><span class="tcl">Full model access</span></div>
+      <span class="xt2">extract ✓</span>
+    </div>
+    <div class="tcard" id="tc5">
+      <div class="tcn">Amazon Q Dev</div>
+      <div class="tcr"><span class="tcl">Free</span><span class="tcv">50 chats/mo</span></div>
+      <div class="tcr"><span class="tcl">1,000 lines transform</span></div>
+      <div class="tcr" style="height:14px"></div>
+      <div class="tcr"><span class="tcl">Paid</span><span class="tcv">AWS billing</span></div>
+      <div class="tcr"><span class="tcl">Pro via console</span></div>
+      <span class="xt2">extract ✓</span>
+    </div>
+  </div>
+  <div style="font-size:11px;color:var(--color-text-secondary)">5 distiller nodes ran in parallel (4.5–6.2 s each), extracting structured free/paid fields from each browser node's raw content.</div>
+</div>
+
+<!-- Slide 6 -->
+<div class="slide" id="sl6">
+  <div style="overflow-x:auto">
+    <table class="ct">
+      <thead><tr><th style="width:16%">Tool</th><th style="width:12%">Free Price</th><th style="width:26%">Free Features</th><th style="width:14%">Paid Price</th><th>Paid Features</th></tr></thead>
+      <tbody>
+        <tr><td>GitHub Copilot</td><td>$0/mo</td><td>2,000 completions, Haiku 4.5 + GPT-5 mini, Copilot CLI</td><td>$10–$100/mo</td><td>Unlimited completions, cloud agent, code review, premium models, usage credits</td></tr>
+        <tr><td>Cursor</td><td>Free (Hobby)</td><td>No credit card required, limited Agent requests, limited Tab completions</td><td>$20/mo Individual</td><td>Extended agent limits, frontier models, MCPs, cloud agents, Bugbot</td></tr>
+        <tr><td>Tabnine</td><td>N/A</td><td>Free plan no longer offered</td><td>$39–$59/user/mo</td><td>AI completions + chat, IDE integration, GDPR/SOC2/ISO27001, enterprise security</td></tr>
+        <tr><td>Codeium</td><td>$0/mo</td><td>Light quota, unlimited inline edits, limited model access</td><td>$20/mo</td><td>Increased quotas, OpenAI + Claude + Gemini access, cloud agents</td></tr>
+        <tr><td>Amazon Q Dev</td><td>Free</td><td>50 agentic chats/mo, transform 1,000 lines of code/mo</td><td>AWS pricing</td><td>Pro plan via AWS console — per-user billing, full feature access</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div style="font-size:11px;color:var(--color-text-secondary);margin-top:8px">Generated by n:13 formatter in 10.9 s — live data fetched from 5 official pricing pages during session cmp-1707eaf8.</div>
+</div>
+
+<!-- Slide 7 -->
+<div class="slide" id="sl7">
+  <div class="ci" id="c1"><div class="cinum">1</div><div><div class="cititle">Original user goal</div><div class="cidesc">"Compare 5 AI coding tools by free plan and paid plan." — stored in query.txt, injected into every skill's prompt as USER_QUERY.</div></div></div>
+  <div class="ci" id="c2"><div class="cinum">2</div><div><div class="cititle">Planner DAG</div><div class="cidesc">13-node graph: planner → browser×5 → distiller×5 → replay_viewer → formatter. Emitted by n:1 in 10.5 s. Persisted as graph.json.</div></div></div>
+  <div class="ci" id="c3"><div class="cinum">3</div><div><div class="cititle">Browser path chosen: extract</div><div class="cidesc">All 5 nodes used Layer 1 (trafilatura). Cascade correctly selected cheapest path for static HTML pricing pages (0 LLM calls, 0 browser launches).</div></div></div>
+  <div class="ci" id="c4"><div class="cinum">4</div><div><div class="cititle">Browser actions taken</div><div class="cidesc">Static pages: 0 interactive turns. Interactive demo (s8-6568acb9): 3 a11y clicks — filter, text-generation, sort=likes — in 4 turns on HuggingFace.</div></div></div>
+  <div class="ci" id="c5"><div class="cinum">5</div><div><div class="cititle">Screenshots / page-state logs</div><div class="cidesc">Extract: raw content snippets (66 KB GitHub Copilot etc.). A11y sessions: turn_NN_raw.png + turn_NN_legend.txt saved per turn in state/sessions/.</div></div></div>
+  <div class="ci" id="c6"><div class="cinum">6</div><div><div class="cititle">Extracted data</div><div class="cidesc">5 distiller nodes produced structured fields: free_plan_price, free_plan_features, paid_plan_price, paid_plan_features for each of the 5 tools.</div></div></div>
+  <div class="ci" id="c7"><div class="cinum">7</div><div><div class="cititle">Final comparison table</div><div class="cidesc">Markdown pipe-table with 5 rows × 5 columns (Tool | Free Price | Free Features | Paid Price | Paid Features). Rendered by n:13 formatter.</div></div></div>
+  <div class="ci" id="c8"><div class="cinum">8</div><div><div class="cititle">Turn count and cost summary</div><div class="cidesc">13 nodes complete, ~68 s total, 0 failures. Browser: 5 extract nodes, 0 interactive turns. HTML report: replay_report_ai_coding_tools.html (22 KB).</div></div></div>
+</div>
+
+<!-- Slide 8 -->
+<div class="slide" id="sl8">
+  <div class="sgrid">
+    <div class="scard"><div class="sval" id="sv1">0</div><div class="slbl">Nodes complete</div></div>
+    <div class="scard"><div class="sval" id="sv2">0s</div><div class="slbl">Total runtime</div></div>
+    <div class="scard"><div class="sval" id="sv3">0</div><div class="slbl">Tools compared</div></div>
+    <div class="scard"><div class="sval" id="sv4">0</div><div class="slbl">Failures</div></div>
+  </div>
+  <div class="igrid">
+    <div class="icard">
+      <div class="ilbl">SESSION DETAILS</div>
+      <div class="irow" style="font-family:var(--font-mono);font-size:10px">
+        ID: cmp-1707eaf8<br>
+        Planner: 10.5s (n:1)<br>
+        Browser ×5: 0.6–2.2s each<br>
+        Distiller ×5: 4.5–6.2s each<br>
+        Replay viewer: 16.5s (n:12)<br>
+        Formatter: 10.9s (n:13)
+      </div>
+    </div>
+    <div class="icard">
+      <div class="ilbl">DELIVERABLES</div>
+      <div class="irow" style="font-size:12px">
+        ✓ Comparison table (5 tools)<br>
+        ✓ HTML replay report (22 KB)<br>
+        ✓ All 8 replay elements covered<br>
+        ✓ Session state persisted to disk<br>
+        ✓ A11y demo: 3 interactive clicks<br>
+        ✓ Orchestrator (flow.py) untouched
+      </div>
+    </div>
+  </div>
+</div>
+
+</div><!-- /swrap -->
+
+<div class="nav">
+  <button class="nbtn" id="pb" onclick="go(cur-1)">← Prev</button>
+  <div class="dots" id="dots"></div>
+  <div style="display:flex;gap:6px">
+    <button class="nbtn playbtn" id="playb" onclick="togglePlay()">▶ Auto-play</button>
+    <button class="nbtn" id="nb" onclick="go(cur+1)">Next →</button>
+  </div>
+</div>
+</div><!-- /demo -->
+</div><!-- /presenter -->
+
+<script>
+const META=[
+  ['User Query','The browser comparison agent is invoked'],
+  ['Planner DAG','13-node graph created in 10.5 s — 5 parallel browser nodes'],
+  ['Browser Cascade','4-layer cascade: extract chosen for all 5 static pricing pages'],
+  ['Interactive Browser Actions','A11y driver demo: 3 clicks on HuggingFace JS-rendered page'],
+  ['Extracted Data','5 distiller nodes structured pricing info from each page'],
+  ['Final Comparison Table','Formatter output — live data from 5 official pricing pages'],
+  ['Replay Viewer: 8 Elements','All assignment requirements satisfied'],
+  ['Run Summary','13 nodes complete, ~68 s total, 0 failures'],
+];
+let cur=1,playing=false,ptimer=null;
+const dots=document.getElementById('dots');
+META.forEach((_,i)=>{const d=document.createElement('div');d.className='dot'+(i===0?' on':'');d.onclick=()=>go(i+1);dots.appendChild(d);});
+
+function go(n){
+  if(n<1||n>8)return;
+  document.querySelectorAll('.slide').forEach((s,i)=>s.classList.toggle('on',i===n-1));
+  document.querySelectorAll('.dot').forEach((d,i)=>d.classList.toggle('on',i===n-1));
+  document.getElementById('stitle').textContent=META[n-1][0];
+  document.getElementById('ssub').textContent=META[n-1][1];
+  document.getElementById('sbadge').textContent='Step '+n+' / 8';
+  document.getElementById('pfill').style.width=(n/8*100)+'%';
+  document.getElementById('pb').disabled=n===1;
+  document.getElementById('nb').disabled=n===8;
+  cur=n; enter(n);
+}
+
+function enter(n){
+  if(n===1){
+    const L=[
+      {id:'t0',c:'tc',t:'$ python run_comparison.py "Compare 5 AI coding tools by free plan and paid plan."'},
+      {id:'t1',c:'td',t:''},
+      {id:'t2',c:'td',t:'[run_comparison] session id: cmp-1707eaf8'},
+      {id:'t3',c:'tg',t:'[gateway] up on http://localhost:8109 — pipeline starting…'},
+    ];
+    L.forEach((l,i)=>setTimeout(()=>{const e=document.getElementById(l.id);if(e){e.className='tl s '+l.c;e.textContent=l.t;}},i*450));
+  }
+  if(n===2){
+    ['d1','d2','d3','d4','d5','d6','d7','d8','d9','d10','d11','d12','d13']
+      .forEach((id,i)=>setTimeout(()=>{const e=document.getElementById(id);if(e)e.classList.add('s');},i*120));
+  }
+  if(n===4){
+    ['a1','a2','a3','a4'].forEach((id,i)=>setTimeout(()=>{const e=document.getElementById(id);if(e)e.classList.add('s');},i*600));
+  }
+  if(n===5){
+    ['tc1','tc2','tc3','tc4','tc5'].forEach((id,i)=>setTimeout(()=>{const e=document.getElementById(id);if(e)e.classList.add('s');},i*180));
+  }
+  if(n===7){
+    ['c1','c2','c3','c4','c5','c6','c7','c8'].forEach((id,i)=>setTimeout(()=>{const e=document.getElementById(id);if(e)e.classList.add('s');},i*200));
+  }
+  if(n===8){
+    [{id:'sv1',v:13,s:''},{id:'sv2',v:68,s:'s'},{id:'sv3',v:5,s:''},{id:'sv4',v:0,s:''}]
+      .forEach(({id,v,s})=>{
+        let c=0;const e=document.getElementById(id);if(!e)return;
+        const step=Math.max(1,Math.ceil(v/20));
+        const t=setInterval(()=>{c=Math.min(c+step,v);e.textContent=c+s;if(c>=v)clearInterval(t);},50);
+      });
+  }
+}
+
+function togglePlay(){
+  playing=!playing;
+  const b=document.getElementById('playb');
+  if(playing){b.textContent='⏸ Pause';ptimer=setInterval(()=>{if(cur>=8){togglePlay();return;}go(cur+1);},6500);}
+  else{b.textContent='▶ Auto-play';clearInterval(ptimer);}
+}
+
+go(1);
+</script>
+</body>
+</html>
